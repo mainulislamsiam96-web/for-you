@@ -1,0 +1,260 @@
+{
+  "invoice_id": "VF-1ED88F",
+  "buyer_name": "Shanto shoe. sylhet.",
+  "timestamp": "2026-05-14 15:37",
+  "fulfilled_items": [],
+  "unfulfilled_items": [
+    {
+      "sku": "8-4025",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-6025",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-4226",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "8-6526",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-9526",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-30664",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-40664",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-60664",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-421097",
+      "requested_pairs": 96,
+      "available_pairs": 0,
+      "shortage_pairs": 96,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-341094",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-651094",
+      "requested_pairs": 96,
+      "available_pairs": 0,
+      "shortage_pairs": 96,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-921094",
+      "requested_pairs": 240,
+      "available_pairs": 0,
+      "shortage_pairs": 240,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-421136",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "8-471136",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-651136",
+      "requested_pairs": 120,
+      "available_pairs": 0,
+      "shortage_pairs": 120,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-951136",
+      "requested_pairs": 120,
+      "available_pairs": 0,
+      "shortage_pairs": 120,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-431138",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "8-651138",
+      "requested_pairs": 120,
+      "available_pairs": 0,
+      "shortage_pairs": 120,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-951138",
+      "requested_pairs": 120,
+      "available_pairs": 0,
+      "shortage_pairs": 120,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-401147",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "5-60168",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "5-62168",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "5-30664",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "5-40664",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "5-60664",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "5-431094",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "5-651094",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "5-921094",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "4-30664",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "4-40664",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "4-60664",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "3-3406",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "3-4206",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "3-6206",
+      "requested_pairs": 72,
+      "available_pairs": 0,
+      "shortage_pairs": 72,
+      "status": "out_of_stock"
+    }
+  ],
+  "totals": {
+    "subtotal": 0,
+    "fulfilled_item_count": 0,
+    "unfulfilled_item_count": 34,
+    "total_items": 34
+  },
+  "warnings": [
+    "SKU 8-4226 not found.",
+    "SKU 8-421136 not found.",
+    "SKU 8-431138 not found.",
+    "SKU 5-30664 not found.",
+    "SKU 5-40664 not found.",
+    "SKU 5-60664 not found."
+  ]
+}

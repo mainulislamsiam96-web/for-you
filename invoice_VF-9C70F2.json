@@ -1,0 +1,36 @@
+{
+  "invoice_id": "VF-9C70F2",
+  "buyer_name": "Azid shoe Bhairab",
+  "timestamp": "2026-05-14 15:37",
+  "fulfilled_items": [],
+  "unfulfilled_items": [
+    {
+      "sku": "8-321097",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-421097",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-631097",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    }
+  ],
+  "totals": {
+    "subtotal": 0,
+    "fulfilled_item_count": 0,
+    "unfulfilled_item_count": 3,
+    "total_items": 3
+  },
+  "warnings": []
+}

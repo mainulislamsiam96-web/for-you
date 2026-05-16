@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victory Footwear — Order Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f11;
+    --surface: #18181b;
+    --surface2: #1f1f24;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0eee8;
+    --muted: #888785;
+    --accent: #d4a96a;
+    --accent2: #e8c99a;
+    --green: #5dbf8a;
+    --red: #e06060;
+    --amber: #e8b84b;
+    --blue: #6aabdf;
+    --font: 'Sora', sans-serif;
+    --mono: 'DM Mono', monospace;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    min-height: 100vh;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: var(--surface);
+    border-right: 0.5px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+
+  .logo {
+    padding: 24px 20px 20px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .logo-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #1a1000;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .logo h1 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .logo p {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .nav {
+    flex: 1;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.15s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+  .nav-item.active {
+    background: rgba(212, 169, 106, 0.12);
+    color: var(--accent2);
+    font-weight: 500;
+  }
+  .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  .nav-section {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 12px 4px;
+    opacity: 0.6;
+  }
+
+  .sidebar-footer {
+    padding: 16px;
+    border-top: 0.5px solid var(--border);
+  }
+  .stock-status {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .stock-status-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 6px;
+  }
+  .stock-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .stock-count {
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ── Main Content ── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    border-bottom: 0.5px solid var(--border);
+    background: var(--surface);
+  }
+  .topbar-title { font-size: 15px; font-weight: 500; }
+  .topbar-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .topbar-actions { display: flex; gap: 8px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 0.5px solid var(--border2);
+    background: var(--surface2);
+    color: var(--text);
+    transition: all 0.15s;
+    font-family: var(--font);
+  }
+  .btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+  .btn-primary {
+    background: var(--accent);
+    color: #1a1000;
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn svg { width: 14px; height: 14px; }
+
+  /* ── Pages ── */
+  .page { display: none; flex: 1; overflow-y: auto; padding: 28px; }
+  .page.active { display: block; }
+
+  /* ── Order Entry Page ── */
+  .order-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 20px;
+    height: calc(100vh - 120px);
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    padding: 16px 20px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .panel-sub { font-size: 11px; color: var(--muted); }
+
+  .panel-body { flex: 1; padding: 20px; overflow-y: auto; }
+
+  .order-textarea {
+    width: 100%;
+    height: 220px;
+    background: var(--surface2);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    padding: 14px 16px;
+    resize: none;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .order-textarea:focus { border-color: var(--accent); }
+  .order-textarea::placeholder { color: var(--muted); }
+
+  .hint-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .hint-chip {
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+  .hint-chip:hover { color: var(--accent); border-color: var(--accent); }
+
+  .process-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #1a1000;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .process-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+  .process-btn:active { transform: translateY(0); }
+  .process-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(26,16,0,0.3);
+    border-top-color: #1a1000;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Invoice result panel */
+  .invoice-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 10px;
+    color: var(--muted);
+  }
+  .invoice-placeholder svg { opacity: 0.25; width: 40px; height: 40px; }
+  .invoice-placeholder p { font-size: 12px; }
+
+  .invoice-card { display: none; }
+  .invoice-card.visible { display: block; }
+
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .invoice-id {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(212,169,106,0.1);
+    padding: 3px 8px;
+    border-radius: 5px;
+  }
+  .buyer-name { font-size: 18px; font-weight: 600; margin-top: 6px; }
+  .invoice-date { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    background: var(--surface2);
+  }
+  .item-row.fulfilled { border-left: 2px solid var(--green); }
+  .item-row.partial { border-left: 2px solid var(--amber); }
+  .item-row.missing { border-left: 2px solid var(--red); }
+
+  .item-sku { font-family: var(--mono); font-size: 12px; color: var(--text); font-weight: 500; }
+  .item-detail { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .item-status {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .status-ok { background: rgba(93,191,138,0.15); color: var(--green); }
+  .status-partial { background: rgba(232,184,75,0.15); color: var(--amber); }
+  .status-missing { background: rgba(224,96,96,0.15); color: var(--red); }
+
+  .invoice-totals {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 0.5px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .total-cell { text-align: center; }
+  .total-value { font-size: 18px; font-weight: 600; }
+  .total-label { font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 14px 0 6px;
+  }
+
+  /* ── Stock Update Page ── */
+  .stock-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .upload-zone {
+    border: 1.5px dashed var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+  }
+  .upload-zone:hover, .upload-zone.drag { border-color: var(--accent); background: rgba(212,169,106,0.04); }
+  .upload-zone svg { width: 36px; height: 36px; color: var(--muted); margin-bottom: 12px; }
+  .upload-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .upload-sub { font-size: 12px; color: var(--muted); }
+  .upload-sub span { color: var(--accent); cursor: pointer; }
+  #file-input { display: none; }
+
+  .manual-add-form {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+  .form-row { margin-bottom: 14px; }
+  .form-label { font-size: 11px; color: var(--muted); margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 0.06em; }
+  .form-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 0.5px solid var(--border2);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-input:focus { border-color: var(--accent); }
+
+  .stock-table-wrap {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 20px;
+    grid-column: 1 / -1;
+  }
+  .stock-table { width: 100%; border-collapse: collapse; }
+  .stock-table th {
+    background: var(--surface2);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+  .stock-table td {
+    padding: 10px 16px;
+    border-top: 0.5px solid var(--border);
+    font-size: 12px;
+    color: var(--text);
+  }
+  .stock-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .sku-cell { font-family: var(--mono); color: var(--accent); }
+  .stock-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .stock-in { background: rgba(93,191,138,0.12); color: var(--green); }
+  .stock-low { background: rgba(232,184,75,0.12); color: var(--amber); }
+  .stock-out { background: rgba(224,96,96,0.12); color: var(--red); }
+  .search-bar {
+    width: 100%;
+    background: var(--surface2);
+    border: 0.5px solid var(--border2);
+    border-bottom: none;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-bar:focus { border-color: var(--accent); }
+
+  /* ── Report Page ── */
+  .report-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+  .metric-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+  }
+  .metric-value { font-size: 26px; font-weight: 600; line-height: 1; margin-bottom: 4px; }
+  .metric-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .report-buyers {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .buyer-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 0.5px solid var(--border);
+    gap: 14px;
+  }
+  .buyer-row:last-child { border-bottom: none; }
+  .buyer-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(212,169,106,0.15);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .buyer-info { flex: 1; }
+  .buyer-info-name { font-size: 13px; font-weight: 500; }
+  .buyer-info-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .buyer-revenue { font-size: 14px; font-weight: 600; color: var(--accent); }
+
+  .empty-report {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13px;
+    z-index: 999;
+    transform: translateY(60px);
+    opacity: 0;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 320px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { border-left: 3px solid var(--green); }
+  .toast.error { border-left: 3px solid var(--red); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-badge">Victory</div>
+    <h1>Footwear<br>Order Agent</h1>
+    <p>Wholesale Management</p>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-section">Operations</div>
+    <button class="nav-item active" onclick="showPage('orders', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+      Process Orders
+    </button>
+    <button class="nav-item" onclick="showPage('stock', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8l-2 4h12z"/></svg>
+      Stock Update
+    </button>
+
+    <div class="nav-section" style="margin-top:8px">Reports</div>
+    <button class="nav-item" onclick="showPage('report', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Daily Report
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="stock-status">
+      <div class="stock-status-label">Inventory</div>
+      <div><span class="stock-dot"></span><span class="stock-count" id="sidebar-count">Loading...</span></div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Orders Page -->
+  <div id="page-orders" class="page active">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Process WhatsApp Orders</div>
+        <div class="topbar-sub">Paste order text — AI parses it automatically</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn" onclick="clearOrder()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          Clear
+        </button>
+      </div>
+    </div>
+    <div style="padding:24px; height:calc(100vh - 65px); overflow-y:auto;">
+      <div class="order-grid">
+
+        <!-- Input Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Order Message</div>
+              <div class="panel-sub">WhatsApp text — any language, any format</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <textarea class="order-textarea" id="order-input" placeholder="Paste WhatsApp order here...
+
+Example:
+Karim Brothers
+8-4021 x 5 ctn
+8-6021 dui carton
+8-7028 x 3 ctn"></textarea>
+
+            <div class="hint-row">
+              <div class="hint-chip" onclick="fillSample(1)">Sample 1</div>
+              <div class="hint-chip" onclick="fillSample(2)">Sample 2</div>
+              <div class="hint-chip" onclick="fillSample(3)">Bangla qty</div>
+            </div>
+
+            <button class="process-btn" id="process-btn" onclick="processOrder()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span id="process-btn-text">Process Order</span>
+              <div class="spinner" id="spinner"></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Invoice Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Generated Invoice</div>
+              <div class="panel-sub">Live result</div>
+            </div>
+            <button class="btn" id="save-btn" style="display:none" onclick="saveInvoice()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save
+            </button>
+          </div>
+          <div class="panel-body" id="invoice-panel">
+            <div class="invoice-placeholder" id="invoice-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <p>Invoice will appear here</p>
+            </div>
+            <div class="invoice-card" id="invoice-card"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Stock Page -->
+  <div id="page-stock" class="page">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Stock Management</div>
+        <div class="topbar-sub">Upload new Excel file or add items manually</div>
+      </div>
+    </div>
+    <div style="padding:24px; overflow-y:auto; height:calc(100vh - 65px);">
+      <div class="stock-page-grid">
+
+        <!-- Upload -->
+        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          <div class="upload-title">Drop Excel file here</div>
+          <div class="upload-sub">or <span>browse to upload</span> · .xlsx files only</div>
+          <input type="file" id="file-input" accept=".xlsx" onchange="handleFileUpload(event)">
+          <div id="upload-filename" style="margin-top:12px;font-size:12px;color:var(--accent);display:none;"></div>
+        </div>
+
+        <!-- Manual Add -->
+        <div class="manual-add-form">
+          <div style="font-size:13px;font-weight:500;margin-bottom:16px;">Add / Update Item</div>
+          <div class="form-row">
+            <label class="form-label">Article Number (SKU)</label>
+            <input class="form-input" id="manual-sku" placeholder="e.g. 8-4021" />
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-row">
+              <label class="form-label">Stock (pairs)</label>
+              <input class="form-input" id="manual-stock" type="number" placeholder="0" />
+            </div>
+            <div class="form-row">
+              <label class="form-label">Price (৳/pair)</label>
+              <input class="form-input" id="manual-price" type="number" placeholder="0" />
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Product Name</label>
+            <input class="form-input" id="manual-name" placeholder="Optional description" />
+          </div>
+          <button class="process-btn" onclick="addManualItem()">Add to Inventory</button>
+        </div>
+
+        <!-- Stock Table -->
+        <div class="stock-table-wrap" style="grid-column:1/-1">
+          <input class="search-bar" id="stock-search" placeholder="Search by SKU or name..." oninput="filterStock()" />
+          <div style="overflow-y:auto;max-height:380px">
+            <table class="stock-table">
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Name</th>
+                  <th>Stock (pairs)</th>
+                  <th>Price (৳)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="stock-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Page -->
+  <div id="page-report" class="page">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Daily Report</div>
+        <div class="topbar-sub" id="report-date">Today's summary</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn" onclick="exportReport()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export JSON
+        </button>
+      </div>
+    </div>
+    <div style="padding:24px;overflow-y:auto;height:calc(100vh - 65px);">
+      <div id="report-content">
+        <div class="report-grid">
+          <div class="metric-card">
+            <div class="metric-value" id="r-buyers">0</div>
+            <div class="metric-label">Buyers</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="r-invoices">0</div>
+            <div class="metric-label">Invoices</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="r-fulfilled">0</div>
+            <div class="metric-label">Items Fulfilled</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" style="color:var(--red)" id="r-missing">0</div>
+            <div class="metric-label">Items Missing</div>
+          </div>
+        </div>
+        <div class="report-buyers" id="buyers-list">
+          <div class="empty-report">No orders processed yet today.<br>Process some orders to see the report.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────
+const state = {
+  inventory: {},
+  invoices: [],
+  dailyReport: { buyers: {}, totalRevenue: 0 }
+};
+
+// ── Sample inventory from your real Excel data ──────────────────────
+const SAMPLE_INVENTORY = [
+  { sku: '8-4021', name: 'Men Sandal 4021', stock: 216, price: 280 },
+  { sku: '8-6021', name: 'Men Sandal 6021', stock: 360, price: 280 },
+  { sku: '8-7028', name: 'Men Sandal 7028', stock: 144, price: 320 },
+  { sku: '8-4028', name: 'Men Sandal 4028', stock: 96, price: 320 },
+  { sku: '3-6335', name: 'Kids Sandal 6335', stock: 480, price: 150 },
+  { sku: '5-60167', name: 'Ladies Sandal 60167', stock: 240, price: 250 },
+  { sku: '5-9761', name: 'Ladies Sandal 9761', stock: 0, price: 230 },
+  { sku: '8-6024', name: 'Men Sandal 6024', stock: 192, price: 300 },
+  { sku: '8-5021', name: 'Men Sandal 5021', stock: 48, price: 260 },
+  { sku: '3-4420', name: 'Kids Sandal 4420', stock: 120, price: 140 },
+];
+
+function initInventory() {
+  SAMPLE_INVENTORY.forEach(item => {
+    state.inventory[item.sku] = { ...item };
+  });
+  renderStockTable();
+  updateSidebarCount();
+}
+
+// ── Navigation ────────────────────────────────────────────────────────
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'report') renderReport();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── Order Processing (calls Flask backend or simulates) ───────────────
+const BANGLA_NUMS = { 'ek':1,'এক':1,'dui':2,'দুই':2,'দুi':2,'tin':3,'তিন':3,'char':4,'চার':4,'panch':5,'পাঁচ':5,'ছয়':6,'shat':7,'aat':8,'noy':9,'dash':10 };
+
+function parseBangla(str) {
+  str = str.trim().toLowerCase();
+  if (BANGLA_NUMS[str]) return BANGLA_NUMS[str];
+  // Bangla digits ০-৯
+  const bn = str.replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d));
+  const n = parseInt(bn);
+  return isNaN(n) ? null : n;
+}
+
+function parseOrderLocally(text) {
+  const lines = text.trim().split('\n').map(l => l.trim()).filter(Boolean);
+  let buyerName = 'Unknown';
+  const items = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    // Article pattern: starts with digit-digit like 8-4021
+    const articleMatch = line.match(/^(\d[-]\d+)/);
+    if (articleMatch) {
+      const sku = articleMatch[1];
+      const rest = line.slice(sku.length).replace(/[x×\-]/gi, ' ').trim();
+      const tokens = rest.split(/\s+/);
+      let qty = null;
+      for (const tok of tokens) {
+        const n = parseInt(tok);
+        if (!isNaN(n) && n > 0) { qty = n; break; }
+        const bn = parseBangla(tok);
+        if (bn) { qty = bn; break; }
+      }
+      items.push({ sku, quantity: qty || 1, unit: 'carton' });
+    } else if (i === 0 || (!line.match(/ctn|carton|pcs|pair/i) && !articleMatch)) {
+      // First non-article line = buyer name
+      if (buyerName === 'Unknown' && line.length > 1 && !line.match(/^\d/)) {
+        buyerName = line.replace(/order[:\s]*/i, '').replace(/bhai[,\s]*/i, '').trim();
+      }
+    }
+  }
+  return { buyer_name: buyerName, items, confidence: 'high', warnings: [] };
+}
+
+function buildInvoice(parsed) {
+  const PAIRS_PER_CARTON = 24;
+  const fulfilled = [], unfulfilled = [];
+  const warnings = [...(parsed.warnings || [])];
+
+  for (const item of parsed.items) {
+    const sku = item.sku.trim();
+    const qty = item.quantity;
+    const unit = item.unit || 'carton';
+    const pairsNeeded = (unit === 'carton' || unit === 'ctn') ? qty * PAIRS_PER_CARTON : qty;
+    const inv = state.inventory[sku];
+
+    if (!inv) {
+      unfulfilled.push({ sku, requested_pairs: pairsNeeded, available_pairs: 0, shortage_pairs: pairsNeeded, status: 'invalid_sku' });
+      warnings.push(`SKU ${sku} not found.`);
+      continue;
+    }
+
+    const avail = inv.stock;
+    const price = inv.price || 0;
+
+    if (avail >= pairsNeeded) {
+      inv.stock -= pairsNeeded;
+      fulfilled.push({ sku, requested_qty: qty, fulfilled_pairs: pairsNeeded, unit, price_per_pair: price, line_total: price * pairsNeeded, status: 'available' });
+    } else if (avail > 0) {
+      const shortage = pairsNeeded - avail;
+      inv.stock = 0;
+      fulfilled.push({ sku, requested_qty: qty, fulfilled_pairs: avail, unit, price_per_pair: price, line_total: price * avail, status: 'partially_available' });
+      unfulfilled.push({ sku, requested_pairs: pairsNeeded, available_pairs: avail, shortage_pairs: shortage, status: 'partially_available' });
+      warnings.push(`SKU ${sku}: needed ${pairsNeeded} pairs, only ${avail} available.`);
+    } else {
+      unfulfilled.push({ sku, requested_pairs: pairsNeeded, available_pairs: 0, shortage_pairs: pairsNeeded, status: 'out_of_stock' });
+    }
+  }
+
+  const subtotal = fulfilled.reduce((s, f) => s + f.line_total, 0);
+  const id = 'VF-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+  const now = new Date();
+  const ts = now.toISOString().slice(0,16).replace('T',' ');
+
+  return {
+    invoice_id: id,
+    buyer_name: parsed.buyer_name,
+    timestamp: ts,
+    fulfilled_items: fulfilled,
+    unfulfilled_items: unfulfilled,
+    totals: { subtotal, fulfilled_item_count: fulfilled.length, unfulfilled_item_count: unfulfilled.length, total_items: parsed.items.length },
+    warnings
+  };
+}
+
+async function processOrder() {
+  const text = document.getElementById('order-input').value.trim();
+  if (!text) { showToast('Please enter an order first', 'error'); return; }
+
+  const btn = document.getElementById('process-btn');
+  const spinner = document.getElementById('spinner');
+  const btnText = document.getElementById('process-btn-text');
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  btnText.textContent = 'Processing...';
+
+  await new Promise(r => setTimeout(r, 600)); // simulate AI call
+
+  try {
+    // Try real backend first, fallback to local parse
+    let parsed;
+    try {
+      const res = await fetch('/api/parse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+        signal: AbortSignal.timeout(5000)
+      });
+      parsed = await res.json();
+    } catch {
+      parsed = parseOrderLocally(text);
+    }
+
+    const invoice = buildInvoice(parsed);
+    state.invoices.push(invoice);
+    renderInvoice(invoice);
+    updateDailyReport(invoice);
+    updateSidebarCount();
+    showToast(`Invoice ${invoice.invoice_id} generated`);
+  } catch (e) {
+    showToast('Error processing order: ' + e.message, 'error');
+  }
+
+  btn.disabled = false;
+  spinner.style.display = 'none';
+  btnText.textContent = 'Process Order';
+}
+
+function renderInvoice(inv) {
+  document.getElementById('invoice-placeholder').style.display = 'none';
+  document.getElementById('save-btn').style.display = 'flex';
+  const card = document.getElementById('invoice-card');
+  card.className = 'invoice-card visible';
+
+  const fItems = inv.fulfilled_items.map(item => {
+    const statusClass = item.status === 'available' ? 'status-ok' : 'status-partial';
+    const statusLabel = item.status === 'available' ? '✓ fulfilled' : '~ partial';
+    const priceStr = item.price_per_pair > 0 ? `৳${item.line_total.toLocaleString()}` : 'price TBD';
+    return `<div class="item-row fulfilled">
+      <div><div class="item-sku">${item.sku}</div><div class="item-detail">${item.fulfilled_pairs} pairs · ${priceStr}</div></div>
+      <span class="item-status ${statusClass}">${statusLabel}</span>
+    </div>`;
+  }).join('');
+
+  const mItems = inv.unfulfilled_items.map(item => {
+    const statusMap = { out_of_stock: 'out of stock', invalid_sku: 'invalid SKU', partially_available: 'partial' };
+    return `<div class="item-row missing">
+      <div><div class="item-sku">${item.sku}</div><div class="item-detail">${item.shortage_pairs} pairs short</div></div>
+      <span class="item-status status-missing">${statusMap[item.status] || item.status}</span>
+    </div>`;
+  }).join('');
+
+  card.innerHTML = `
+    <div class="invoice-header">
+      <div>
+        <div class="invoice-id">${inv.invoice_id}</div>
+        <div class="buyer-name">${inv.buyer_name}</div>
+        <div class="invoice-date">${inv.timestamp}</div>
+      </div>
+    </div>
+    <div class="section-label">Fulfilled (${inv.totals.fulfilled_item_count})</div>
+    ${fItems || '<div style="font-size:12px;color:var(--muted);padding:8px 0">No items fulfilled</div>'}
+    ${inv.unfulfilled_items.length ? `<div class="section-label">Missing (${inv.totals.unfulfilled_item_count})</div>${mItems}` : ''}
+    <div class="invoice-totals">
+      <div class="total-cell"><div class="total-value">৳${inv.totals.subtotal.toLocaleString()}</div><div class="total-label">Total</div></div>
+      <div class="total-cell"><div class="total-value" style="color:var(--green)">${inv.totals.fulfilled_item_count}</div><div class="total-label">Fulfilled</div></div>
+      <div class="total-cell"><div class="total-value" style="color:var(--red)">${inv.totals.unfulfilled_item_count}</div><div class="total-label">Missing</div></div>
+    </div>
+    ${inv.warnings.length ? `<div class="section-label" style="margin-top:14px">Warnings</div>${inv.warnings.map(w=>`<div style="font-size:11px;color:var(--amber);padding:4px 0">⚠ ${w}</div>`).join('')}` : ''}
+  `;
+}
+
+function saveInvoice() {
+  if (!state.invoices.length) return;
+  const inv = state.invoices[state.invoices.length - 1];
+  const blob = new Blob([JSON.stringify(inv, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${inv.invoice_id}.json`;
+  a.click();
+  showToast('Invoice saved as JSON');
+}
+
+function clearOrder() {
+  document.getElementById('order-input').value = '';
+  document.getElementById('invoice-placeholder').style.display = 'flex';
+  document.getElementById('invoice-card').className = 'invoice-card';
+  document.getElementById('save-btn').style.display = 'none';
+}
+
+// ── Sample messages ───────────────────────────────────────────────────
+const SAMPLES = [
+  `Karim Brothers\n8-4021 x 5 ctn\n8-6021 x 2 ctn\n8-7028 x 3 ctn`,
+  `Rahim Store\n3-6335 x 10 ctn\n5-60167 x 4 ctn\n9999 x 2 ctn`,
+  `Sumon Enterprise\n8-4028 tin carton\n5-9761 dui ctn\n8-5021 panch ctn`
+];
+function fillSample(n) {
+  document.getElementById('order-input').value = SAMPLES[n-1];
+}
+
+// ── Stock Table ───────────────────────────────────────────────────────
+function renderStockTable(filter = '') {
+  const tbody = document.getElementById('stock-tbody');
+  const items = Object.values(state.inventory);
+  const filtered = filter ? items.filter(i => i.sku.toLowerCase().includes(filter.toLowerCase()) || (i.name||'').toLowerCase().includes(filter.toLowerCase())) : items;
+
+  tbody.innerHTML = filtered.map(item => {
+    let statusClass = 'stock-in', statusText = 'In Stock';
+    if (item.stock === 0) { statusClass = 'stock-out'; statusText = 'Out of Stock'; }
+    else if (item.stock < 48) { statusClass = 'stock-low'; statusText = 'Low Stock'; }
+    return `<tr>
+      <td class="sku-cell">${item.sku}</td>
+      <td>${item.name || '—'}</td>
+      <td>${item.stock.toLocaleString()}</td>
+      <td>${item.price ? '৳' + item.price : '—'}</td>
+      <td><span class="stock-badge ${statusClass}">${statusText}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function filterStock() {
+  renderStockTable(document.getElementById('stock-search').value);
+}
+
+function addManualItem() {
+  const sku = document.getElementById('manual-sku').value.trim();
+  const stock = parseInt(document.getElementById('manual-stock').value) || 0;
+  const price = parseInt(document.getElementById('manual-price').value) || 0;
+  const name = document.getElementById('manual-name').value.trim();
+  if (!sku) { showToast('Please enter a SKU', 'error'); return; }
+
+  const isNew = !state.inventory[sku];
+  state.inventory[sku] = { sku, name: name || state.inventory[sku]?.name || '', stock, price };
+  renderStockTable();
+  updateSidebarCount();
+  document.getElementById('manual-sku').value = '';
+  document.getElementById('manual-stock').value = '';
+  document.getElementById('manual-price').value = '';
+  document.getElementById('manual-name').value = '';
+  showToast(isNew ? `Added ${sku} to inventory` : `Updated ${sku}`);
+}
+
+function updateSidebarCount() {
+  const total = Object.keys(state.inventory).length;
+  const inStock = Object.values(state.inventory).filter(i => i.stock > 0).length;
+  document.getElementById('sidebar-count').textContent = `${inStock} / ${total} SKUs active`;
+}
+
+// ── File upload ───────────────────────────────────────────────────────
+function dragOver(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('drag'); }
+function dragLeave() { document.getElementById('upload-zone').classList.remove('drag'); }
+function dropFile(e) { e.preventDefault(); dragLeave(); handleFiles(e.dataTransfer.files); }
+function handleFileUpload(e) { handleFiles(e.target.files); }
+
+async function handleFiles(files) {
+  if (!files.length) return;
+  const file = files[0];
+  const filenameEl = document.getElementById('upload-filename');
+  filenameEl.style.display = 'block';
+  filenameEl.textContent = '⏳ Uploading ' + file.name + '...';
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const res = await fetch('/api/upload-stock', { method: 'POST', body: formData });
+    const data = await res.json();
+    if (data.ok) {
+      filenameEl.textContent = '✓ ' + file.name + ' loaded — ' + data.in_stock + '/' + data.total_skus + ' SKUs active';
+      showToast('Stock updated! ' + data.in_stock + ' SKUs loaded from ' + data.file);
+      // Reload inventory display from server
+      await loadInventoryFromServer();
+    } else {
+      filenameEl.textContent = '✗ Error: ' + (data.error || 'Upload failed');
+      showToast('Upload failed: ' + (data.error || 'unknown error'), 'error');
+    }
+  } catch (e) {
+    filenameEl.textContent = '✗ Could not reach server';
+    showToast('Make sure app.py is running (python app.py)', 'error');
+  }
+}
+
+async function loadInventoryFromServer() {
+  try {
+    const res = await fetch('/api/inventory');
+    const data = await res.json();
+    if (data.items) {
+      data.items.forEach(item => {
+        state.inventory[item.sku] = { sku: item.sku, name: item.name || '', stock: item.stock, price: item.price };
+      });
+      renderStockTable();
+      updateSidebarCount();
+    }
+  } catch (e) {
+    // Server not running — local state is fine
+  }
+}
+
+// ── Daily Report ──────────────────────────────────────────────────────
+function updateDailyReport(invoice) {
+  const name = invoice.buyer_name;
+  if (!state.dailyReport.buyers[name]) {
+    state.dailyReport.buyers[name] = { name, invoices: 0, revenue: 0, fulfilled: 0, missing: 0 };
+  }
+  const b = state.dailyReport.buyers[name];
+  b.invoices++;
+  b.revenue += invoice.totals.subtotal;
+  b.fulfilled += invoice.totals.fulfilled_item_count;
+  b.missing += invoice.totals.unfulfilled_item_count;
+  state.dailyReport.totalRevenue += invoice.totals.subtotal;
+}
+
+function renderReport() {
+  const buyers = Object.values(state.dailyReport.buyers);
+  const totalFulfilled = buyers.reduce((s, b) => s + b.fulfilled, 0);
+  const totalMissing = buyers.reduce((s, b) => s + b.missing, 0);
+
+  document.getElementById('r-buyers').textContent = buyers.length;
+  document.getElementById('r-invoices').textContent = state.invoices.length;
+  document.getElementById('r-fulfilled').textContent = totalFulfilled;
+  document.getElementById('r-missing').textContent = totalMissing;
+
+  const list = document.getElementById('buyers-list');
+  if (!buyers.length) {
+    list.innerHTML = '<div class="empty-report">No orders processed yet today.<br>Process some orders to see the report.</div>';
+    return;
+  }
+
+  list.innerHTML = buyers.sort((a,b) => b.revenue - a.revenue).map(b => {
+    const initials = b.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="buyer-row">
+      <div class="buyer-avatar">${initials}</div>
+      <div class="buyer-info">
+        <div class="buyer-info-name">${b.name}</div>
+        <div class="buyer-info-sub">${b.invoices} invoice${b.invoices>1?'s':''} · ${b.fulfilled} items fulfilled${b.missing ? ' · <span style="color:var(--red)">' + b.missing + ' missing</span>' : ''}</div>
+      </div>
+      <div class="buyer-revenue">৳${b.revenue.toLocaleString()}</div>
+    </div>`;
+  }).join('');
+
+  const today = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('report-date').textContent = today;
+}
+
+function exportReport() {
+  if (!state.invoices.length) { showToast('No invoices to export', 'error'); return; }
+  const report = {
+    date: new Date().toISOString().slice(0,10),
+    total_invoices: state.invoices.length,
+    total_buyers: Object.keys(state.dailyReport.buyers).length,
+    total_revenue: state.dailyReport.totalRevenue,
+    buyers: Object.values(state.dailyReport.buyers),
+    invoices: state.invoices
+  };
+  const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `daily_report_${report.date}.json`;
+  a.click();
+  showToast('Report exported');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────
+initInventory();
+loadInventoryFromServer();
+</script>
+</body>
+</html>

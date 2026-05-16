@@ -1,0 +1,110 @@
+{
+  "invoice_id": "VF-DFD974",
+  "buyer_name": "Golden shoe. sylhet",
+  "timestamp": "2026-05-14 15:35",
+  "fulfilled_items": [],
+  "unfulfilled_items": [
+    {
+      "sku": "8-321097",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-421097",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-631097",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-341094",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "9-431094",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "8-651094",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-921094",
+      "requested_pairs": 48,
+      "available_pairs": 0,
+      "shortage_pairs": 48,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-431138",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "8-651138",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-951138",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-421136",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "invalid_sku"
+    },
+    {
+      "sku": "8-651136",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "out_of_stock"
+    },
+    {
+      "sku": "8-951136",
+      "requested_pairs": 24,
+      "available_pairs": 0,
+      "shortage_pairs": 24,
+      "status": "out_of_stock"
+    }
+  ],
+  "totals": {
+    "subtotal": 0,
+    "fulfilled_item_count": 0,
+    "unfulfilled_item_count": 13,
+    "total_items": 13
+  },
+  "warnings": [
+    "SKU 9-431094 not found.",
+    "SKU 8-431138 not found.",
+    "SKU 8-421136 not found."
+  ]
+}

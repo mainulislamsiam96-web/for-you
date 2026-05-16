@@ -1,0 +1,24 @@
+{
+  "invoice_id": "VF-F66674",
+  "buyer_name": null,
+  "timestamp": "2026-05-14 15:40",
+  "fulfilled_items": [],
+  "unfulfilled_items": [
+    {
+      "sku": "8-321097",
+      "requested_pairs": 12000,
+      "available_pairs": 0,
+      "shortage_pairs": 12000,
+      "status": "out_of_stock"
+    }
+  ],
+  "totals": {
+    "subtotal": 0,
+    "fulfilled_item_count": 0,
+    "unfulfilled_item_count": 1,
+    "total_items": 1
+  },
+  "warnings": [
+    "Buyer name not found"
+  ]
+}
